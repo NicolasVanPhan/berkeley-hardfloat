@@ -64,7 +64,7 @@ class
     val recFNToIN = Module(new RecFNToIN(expWidth, sigWidth, intWidth))
     recFNToIN.io.in := recFNFromFN(expWidth, sigWidth, io.in)
     recFNToIN.io.roundingMode := io.roundingMode
-    recFNToIN.io.signedOut := false.B
+    recFNToIN.io.signedOut := io.in(0) && (! io.in(0)) // = false.B (hack to make signedOut appear in generated Systemverilog)
 
     io.actual.out := recFNToIN.io.out
     io.actual.exceptionFlags :=
@@ -105,7 +105,7 @@ class
     val recFNToIN = Module(new RecFNToIN(expWidth, sigWidth, intWidth))
     recFNToIN.io.in := recFNFromFN(expWidth, sigWidth, io.in)
     recFNToIN.io.roundingMode := io.roundingMode
-    recFNToIN.io.signedOut := true.B
+    recFNToIN.io.signedOut := io.in(0) || (! io.in(0)) // = true.B (hack to make signedOut appear in generated Systemverilog)
 
     io.actual.out := recFNToIN.io.out
     io.actual.exceptionFlags :=
