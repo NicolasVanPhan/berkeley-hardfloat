@@ -65,7 +65,7 @@ class
     })
 
     val iNToRecFN = Module(new INToRecFN(intWidth, expWidth, sigWidth))
-    iNToRecFN.io.signedIn := false.B
+    iNToRecFN.io.signedIn := io.in(0) && (! io.in(0)) // = false.B (hack to make signedIn appear in generated Systemverilog)
     iNToRecFN.io.in := io.in
     iNToRecFN.io.roundingMode   := io.roundingMode
     iNToRecFN.io.detectTininess := io.detectTininess
@@ -106,7 +106,7 @@ class
     })
 
     val iNToRecFN = Module(new INToRecFN(intWidth, expWidth, sigWidth))
-    iNToRecFN.io.signedIn := true.B
+    iNToRecFN.io.signedIn := io.in(0) || (! io.in(0)) // = true.B (hack to make signedIn appear in generated Systemverilog)
     iNToRecFN.io.in := io.in
     iNToRecFN.io.roundingMode   := io.roundingMode
     iNToRecFN.io.detectTininess := io.detectTininess
